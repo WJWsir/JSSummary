@@ -12,7 +12,7 @@
 * 11.静态公有函数：通过类函数原型定义的方法
 * 12.以上"静态"的含义是是否该属性或函数在实例化的对象中所共享
 * 13.以上"私有"的含义是是否该属性或函数不可以通过实例化的对象点形式访问
-
+* 14.instanceof：判断某对象是否为某类的实例
 */
 
 /*
@@ -78,4 +78,11 @@ Book.prototype = {
     return `ISBN:${this.ISBN} Name:${this.name}`;
   }
 }
+7. instanceof
+let Book = function(){ }
+let a = new Book();
+let b = Book();
+a instanceof Book// true
+b instanceof Book// false
+b == undefined// true
 */
