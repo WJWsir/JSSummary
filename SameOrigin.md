@@ -30,7 +30,7 @@
 参考 [跨源资源请求][2]
 2. 如何解释：在必应首页的网站，在Chrome调试器中，console tab运行 fetch("https://www.baidu.com")，在 network tab中可以看到响应码为200，但是预览没有任何东西  
 参考 [不同源fetch][1]
-3. 如何解释：在必应首页的网站，在Chrome调试器中，修改html在中间嵌套一个src属性为 http://localhost:64628/Home/Index 的iframe tag，在Chrome调试器中，network tab中可以看到响应码为200
+3. 如何解释：在必应首页的网站，在Chrome调试器中，修改html在中间嵌套一个src属性为 http://localhost:64628/Home/Index 的iframe tag，在Chrome调试器中，network tab中可以看到响应码为200(注：本地网站是由ASP.NET MVC开发的)
 但是画面没有显示出来  
 参考 [跨源iframe][3]
 
