@@ -32,6 +32,7 @@
 参考 [不同源fetch][1]
 3. 如何解释：在必应首页的网站，在Chrome调试器中，修改html在中间嵌套一个src属性为 http://localhost:64628/Home/Index 的iframe tag，在Chrome调试器中，network tab中可以看到响应码为200(注：本地网站是由ASP.NET MVC开发的)
 但是画面没有显示出来  
+图示 ![跨源iframe](https://raw.githubusercontent.com/WJWsir/JSSummary/main/SameOriginPolicy_1.png)
 参考 [跨源iframe][3]
 
 ## 五、参考资料
