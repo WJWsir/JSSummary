@@ -36,7 +36,7 @@
 参考 [跨源iframe][3]
 
 ## 五、参考资料
-
+[Same-origin policy](https://web.dev/same-origin-policy/#how-to-prevent-clickjacking)
 
 
 [1]:https://web.dev/codelab-same-origin-fetch/
