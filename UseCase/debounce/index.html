@@ -1,0 +1,129 @@
+<!doctype html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<style>
+    .demo-item::after {
+        content: "";
+        display: block;
+        background-color: black;
+        border: 1px solid black;
+        margin: 10px;
+    }
+</style>
+
+<h4>
+    <p>参考资料：debounce throttle</p>
+    <p>
+        <a href="https://css-tricks.com/debouncing-throttling-explained-examples/">Lodash 源码 debounce.js 注释 推荐的介绍性文章</a>
+    <ul>
+        <li>debounce 两种模式 "immediate" 与 "trailing" 的区别</li>
+        <li>debounce 作为Event handler的 common pitfalls</li>
+    </ul>
+    </p>
+    <p>
+        <a href="https://zh.javascript.info/call-apply-decorators">现代Javascript教程 装饰器模式图文讲解</a>
+    <ul>
+        <li>装饰器模式是函数包装函数，即输入有函数输出是函数</li>
+    </ul>
+    </p>
+</h4>
+
+<div class="demo-item">
+    <p>
+        在这个输入框中调用的是函数 <code>handler</code>：
+        <br>
+        <input id="input1" placeholder="type here">
+    </p>
+
+    <p>
+        在这个输入框中调用的是防抖函数 <code>debounce(handler, 1000)</code>：
+        <br>
+        <input id="input2" placeholder="type here">
+    </p>
+
+    <button id="result"><code>handler</code> 将结果放到了这儿</button>
+
+    <script>
+        function handler(event) {
+            result.innerHTML = event.target.value;
+        }
+
+        input1.oninput = handler;
+        input2.oninput = _.debounce(handler, 1000);
+    </script>
+
+</div>
+
+<div class="demo-item">
+    <form>
+        <div class="status-key">Type here. I will detect when you stop typing</div>
+        <input type="text" class="autocomplete" placeholder="type here">
+        <div class="status-ajax"></div>
+    </form>
+
+    <script>
+        $(document).ready(function () {
+
+            var $statusKey = $('.status-key');
+            var $statusAjax = $('.status-ajax');
+            var intervalId;
+
+            // Fake ajax request. Just for demo
+            function make_ajax_request(e) {
+                var that = this;
+                $statusAjax.html('That\'s enough waiting. Making now the ajax request');
+
+                intervalId = setTimeout(function () {
+                    $statusKey.html('Type here. I will detect when you stop typing');
+                    $statusAjax.html('');
+                    $(that).val(''); // empty field
+                }, 2000);
+            }
+
+            // Event handlers to show information when events are being emitted
+            $('.autocomplete')
+                .on('keydown', function () {
+
+                    $statusKey.html('Waiting for more keystrokes... ');
+                    clearInterval(intervalId);
+                })
+
+
+            // Display when the ajax request will happen (after user stops typing)
+            // Exagerated value of 1.2 seconds for demo purposes, but in a real example would be better from 50ms to 200ms
+            $('.autocomplete').on('keydown',
+                _.debounce(make_ajax_request, 1300));
+        });
+    </script>
+
+</div>
+
+<div class="demo-item">
+    <div style="display: flex; ">
+        <div class="left-panel">Raw resize events<br></div>
+        <div style="width: 1px;background-color: black;"></div>
+        <div class="right-panel">Debounced events<br></div>
+    </div>
+
+    <script>
+        // Based on http://www.paulirish.com/2009/throttled-smartresize-jquery-event-handler/
+        $(document).ready(function () {
+
+            var $win = $(window);
+            var $left_panel = $('.left-panel');
+            var $right_panel = $('.right-panel');
+
+            function display_info($div) {
+                $div.append($win.width() + ' x ' + $win.height() + '<br>');
+            }
+
+            $(window).on('resize', function () {
+                display_info($left_panel);
+            });
+
+            $(window).on('resize', _.debounce(function () {
+                display_info($right_panel);
+            }, 1000));
+        });
+    </script>
+</div>
