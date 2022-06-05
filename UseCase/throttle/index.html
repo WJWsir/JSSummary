@@ -1,0 +1,98 @@
+<!doctype html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<style>
+    .demo-item::after {
+        content: "";
+        display: block;
+        background-color: black;
+        border: 1px solid black;
+        margin: 10px;
+    }
+
+    .item {
+        border: 4px solid white;
+        height: 15px;
+        width: 100%;
+        margin-bottom: 50px;
+        background: #333;
+        padding: 20px;
+        color: white;
+    }
+
+    .color-1 {
+        border-color: #9BFFBB
+    }
+
+    .color-2 {
+        border-color: #B9C6FF
+    }
+
+    .color-3 {
+        border-color: #FFA3D8
+    }
+
+    .color-4 {
+        border-color: #FF8E9B
+    }
+</style>
+
+<h4>
+    <p>参考资料：debounce throttle</p>
+    <p>
+        <a href="https://css-tricks.com/debouncing-throttling-explained-examples/">Lodash 源码 debounce.js 注释 推荐的介绍性文章</a>
+    <ul>
+        <li>非常好的Example</li>
+    </ul>
+    </p>
+    <p>
+        <a href="https://zh.javascript.info/call-apply-decorators">现代Javascript教程 装饰器模式图文讲解</a>
+    <ul>
+        <li>什么是 throttle</li>
+    </ul>
+    </p>
+</h4>
+
+<div class="demo-item">
+    <h1>Infinite scrolling throttled</h1>
+    <div class="item color-1">Block 1</div>
+    <div class="item color-2">Block 2</div>
+    <div class="item color-3">Block 3</div>
+    <div class="item color-4">Block 4</div>
+
+    <script>
+        // Very simple example.
+        // Probably you would want to use a
+        // full-featured plugin like
+        // https://github.com/infinite-scroll/infinite-scroll/blob/master/jquery.infinitescroll.js
+        $(document).ready(function () {
+
+            // Check every 300ms the scroll position
+            $(document).on('scroll', _.throttle(function () {
+                check_if_needs_more_content();
+            }, 1500));
+
+            function check_if_needs_more_content() {
+                pixelsFromWindowBottomToBottom = 0 + $(document).height() - $(window).scrollTop() - $(window).height();
+
+                // console.log($(document).height());
+                // console.log($(window).scrollTop());
+                // console.log($(window).height());
+                //console.log(pixelsFromWindowBottomToBottom);
+
+
+                if (pixelsFromWindowBottomToBottom < 200) {
+                    // Here it would go an ajax request
+                    $('body').append($('.item').clone());
+
+                }
+            }
+        });
+
+
+
+
+
+    </script>
+
+</div>
